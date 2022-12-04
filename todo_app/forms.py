@@ -23,8 +23,4 @@ class CommentForm(ModelForm):
         #  self.instance is the comment we are creating with htis form
         self.instance.task = task
 
-
-
-# comment_form = CommmentForm(task_object=Task)
-
-        
+        # comment_form = CommmentForm(task_object=Task.objects.first())

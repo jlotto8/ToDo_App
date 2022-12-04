@@ -13,7 +13,7 @@ class HomeView(View):
     Homeview functions as the site's homepage, listing out all Task objects in the database and linking out to each one's detail view
     '''
     def get(self, request):
-        '''The content'''
+        '''The content required to render the homepage'''
         task_form = TaskForm()
         tasks = Task.objects.all()
 
@@ -63,7 +63,9 @@ class TaskDetailView(View):
         )
 
     def post(self, request, task_id):
-        ''' '''
+        '''
+        This method either updates  or deletes existing Task objects in the database  (depending on user choice) before redirecting to the 'get' method of the
+         '''
         task = Task.objects.get(id=task_id)
 
         if 'update' in request.POST:

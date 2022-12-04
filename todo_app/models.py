@@ -1,10 +1,15 @@
 from django.db import models
 
 # Create your models here.
+class Tag(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+
 
 class Task(models.Model):
     ''' A task object will have a description of the task to complete '''
     description = models.CharField(max_length=255)
+    tags = models.ManyToManyField(Tag)
+
 
 
 class Comment(models.Model):

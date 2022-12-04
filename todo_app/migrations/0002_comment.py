@@ -23,8 +23,7 @@ class Migration(migrations.Migration):
                 ),
                 ("body", models.TextField()),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
-                ("task",
-                    models.ForeignKey(
+                ("task",models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE, to="todo_app.task"),
                 ),
             ],
