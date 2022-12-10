@@ -10,6 +10,16 @@
 </form>
 #<hr>
 
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ tag_form }}
+    <input type = "submit" name = 'tag' value = 'Tag'/>
+</form>
+
+{% for tag in tag_list %}
+   {{ tag.name }} | 
+{% endfor %}
+
 <form method="POST">
     {% csrf_token %}
     {{ comment_form }}

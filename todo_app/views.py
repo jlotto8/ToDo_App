@@ -1,9 +1,8 @@
 from django.shortcuts import redirect, render
-
 from django.views import View
 
-from todo_app.forms import TaskForm, CommentForm
-from todo_app.models import Task,Comment
+from todo_app.forms import TaskForm, CommentForm, TagForm
+from todo_app.models import Task,Comment, Tag
 
 # # Create your views here.
 
@@ -31,6 +30,7 @@ class HomeView(View):
         
     def post(self, request):
         ''' '''
+        tasks = Task.objects.all()
         task_form = TaskForm(request.POST)
         task_form.save()
 
@@ -47,13 +47,18 @@ class TaskDetailView(View):
         task_form = TaskForm(instance=task)
 
         comments = Comment.objects.filter(task=task)
-        comment_form = CommentForm(task_object=task)     
+        comment_form = CommentForm(task_object=task)
+        current_tags = task.tags.all()
+        tag_form = TagForm()     
 
         html_data = {
+            'task': task,
             'task_object': task,
+            'tag_form':tag_form,
             'form': task_form,
             'comment_list': comments,
             'comment_form': comment_form,
+            'tag_list': current_tags
         }
        
         return render(
@@ -76,6 +81,9 @@ class TaskDetailView(View):
         elif 'add' in request.POST:
             comment_form =CommentForm(request.POST, task_object=task)
             comment_form.save()
+        elif 'tag' in request.POST:
+            tag_form = TagForm(request.POST)
+            tag_form.save(task)
 
             return redirect('task_detail', task.id)
 
